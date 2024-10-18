@@ -12,12 +12,12 @@
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             font-family: Arial, sans-serif;
             display: flex;
             min-height: 100vh;
-            background-color: #f4f4f4;
+            background-image: url("https://wallpapers.com/images/hd/hospital-background-8uzvaaj1wielv1ca.jpg");
             transition: all 0.3s ease;
         }
 
@@ -320,7 +320,7 @@
         </div>
         <ul>
             <li>
-                <a href="{% url 'admin_dashboard' %}" class="{% if request.resolver_match.url_name == 'admin_dashboard' %}active{% endif %}">
+                <a href="{% url 'adminhome' %}" class="{% if request.resolver_match.url_name == 'admin_dashboard' %}active{% endif %}">
                     <i class="fas fa-tachometer-alt"></i> Dashboard
                 </a>
             </li>

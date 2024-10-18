@@ -6,14 +6,35 @@
     <title>Hospital Homepage</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        body {
+    background: linear-gradient(135deg, #e0f7fa, #f4fcf6, #b2ebf2);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+    font-family: Arial, sans-serif;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
         .navbar {
             margin-bottom: 20px;
         }
         .jumbotron {
-            background: url('https://i.imgur.com/2L6hR6L.png') no-repeat center center;
+            
+            background:url("https://wallpapers.com/images/hd/hospital-background-8uzvaaj1wielv1ca.jpg");
             background-size: cover;
-            color: white;
+            color: black;
             height: 400px;
+            border-radius: 50px;
         }
         .jumbotron h1 {
             font-size: 4em;
@@ -96,7 +117,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="card">
-                    <img src="https://i.imgur.com/uCgUqOe.png" class="card-img-top" alt="Service 1">
+                    <img src="https://www.shutterstock.com/image-photo/smiling-indian-caring-doctor-supporting-600nw-2185754175.jpg" class="card-img-top" alt="Service 1">
                     <div class="card-body">
                         <h5 class="card-title">General Medicine</h5>
                         <p class="card-text">Comprehensive medical care for all ages.</p>
@@ -105,7 +126,7 @@
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <img src="https://i.imgur.com/PBMqq88.png" class="card-img-top" alt="Service 2">
+                    <img src="https://sa1s3optim.patientpop.com/assets/images/provider/photos/2404057.jpg" class="card-img-top" alt="Service 2">
                     <div class="card-body">
                         <h5 class="card-title">Pediatrics</h5>
                         <p class="card-text">Specialized care for infants, children, and adolescents.</p>
@@ -114,7 +135,7 @@
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <img src="https://i.imgur.com/l7IdxzJ.png" class="card-img-top" alt="Service 3">
+                    <img src="https://www.harleystreet.sg/img/heart-surgery.jpg" class="card-img-top" alt="Service 3">
                     <div class="card-body">
                         <h5 class="card-title">Cardiology</h5>
                         <p class="card-text">Advanced heart care and treatments.</p>
@@ -130,7 +151,8 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="card">
-                    <img src="https://i.imgur.com/PVfC9Sg.jpg" class="card-img-top" alt="Doctor 1">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3M_CQa8HzoPq5zLC-QKzroTzqkykDcwkwiZgcNaDALzJRf7pPFMmS-uYJnYEHJt4EPmA&usqp=CAU" class="card-img-top" alt="Doctor 1">
+                    
                     <div class="card-body">
                         <h5 class="card-title">Dr. John Doe</h5>
                         <p class="card-text">General Medicine</p>
@@ -139,7 +161,7 @@
             </div>
             <div class="col-md-3">
                 <div class="card">
-                    <img src="https://i.imgur.com/pnDh7c9.jpg" class="card-img-top" alt="Doctor 2">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQssLhyAQSX_JlL3x1sSNFZWeTYri5KobLMeQVvIaWz3Rcwh3-COh-lizWXBEmrJVZcoQw&usqp=CAU" class="card-img-top" alt="Doctor 2">
                     <div class="card-body">
                         <h5 class="card-title">Dr. Jane Smith</h5>
                         <p class="card-text">Pediatrics</p>
@@ -148,7 +170,7 @@
             </div>
             <div class="col-md-3">
                 <div class="card">
-                    <img src="https://i.imgur.com/EorQ3XJ.png" class="card-img-top" alt="Doctor 3">
+                    <img src="https://img.freepik.com/premium-photo/animated-doctor-character-doctor-portrait_987876-257.jpg" class="card-img-top" alt="Doctor 3">
                     <div class="card-body">
                         <h5 class="card-title">Dr. Rasheed Singh</h5>
                         <p class="card-text">Cardiology</p>
@@ -157,7 +179,7 @@
             </div>
             <div class="col-md-3">
                 <div class="card">
-                    <img src="https://i.imgur.com/KGkbw80.jpg" class="card-img-top" alt="Doctor 4">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBrDXmQFs_ose10x4kO_-p_bYoLDJ1Wj83cIf0EpzQV89zw5LdW1eE4OKm4VgU5fqf2l8&usqp=CAU" class="card-img-top" alt="Doctor 4">
                     <div class="card-body">
                         <h5 class="card-title">Dr. Emily Davis</h5>
                         <p class="card-text">Orthopedics</p>

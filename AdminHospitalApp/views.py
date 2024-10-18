@@ -7,13 +7,23 @@ from .forms import InventoryFilterForm
 from .forms import InventoryItemForm, FinancialRecordForm
 from .models import InventoryItem, FinancialRecord
 
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.shortcuts import render, redirect
+from django.db.models import Sum, F, FloatField
+from .models import InventoryItem, FinancialRecord
 
-# Inventory Management
+# Function to check if the user is a superuser
+def superuser_required(user):
+    return user.is_superuser
+
+# Protecting the admin dashboard with login and superuser requirement
+@login_required
+@user_passes_test(superuser_required)
 def admin_dashboard(request):
     return render(request, 'admin/admin_dashboard.html')
 
-
-
+def adminhome(request):
+    return render(request, 'admin/adminhome.html')
 
 def inventory_reports(request):
     total_items = InventoryItem.objects.aggregate(total=Sum('quantity'))['total'] or 0

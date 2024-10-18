@@ -88,8 +88,9 @@ DATABASES = {
     }
 }
 
-LOGIN_URL = 'doctor_login'
-LOGIN_REDIRECT_URL = 'doctor_dashboard'
+
+LOGIN_URL = 'adlogin/'
+LOGIN_REDIRECT_URL = 'adminhome'
 LOGOUT_REDIRECT_URL = 'login_view'
 
 

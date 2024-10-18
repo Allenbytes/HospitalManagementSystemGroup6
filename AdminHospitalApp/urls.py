@@ -1,10 +1,13 @@
 from django.urls import path
 from . import views
 from django.urls import path, include
-
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+    path('adlogin/', auth_views.LoginView.as_view(template_name='admin/adlogin.html'), name='adlogin'),
+
     path('', views.admin_dashboard, name='admin_dashboard'),
+    path('home/', views.adminhome, name='adminhome'),
     path('inventory/', views.inventory_list, name='inventory_list'),
     path('inventory/add/', views.add_inventory_item, name='add_inventory_item'),
     path('financial/', views.financial_records, name='financial_records'),
