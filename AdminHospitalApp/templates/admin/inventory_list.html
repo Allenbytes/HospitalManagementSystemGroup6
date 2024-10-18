@@ -1,52 +1,257 @@
 {% extends 'admin/admin_dashboard.html' %}
 
 {% block content %}
+    
+    <style>
+    
+ /* styles.css */
+
+/* General form styling */
+.filter-form {
+    background-color: #ffffff; /* White background for the form */
+    border: 1px solid #dee2e6; /* Light gray border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 20px; /* Padding around the form */
+    margin-bottom: 30px; /* Space below the form */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Styling for form group */
+.form-group {
+    margin-bottom: 15px; /* Space between form elements */
+}
+
+/* Styling for labels */
+label {
+    font-weight: bold; /* Bold labels for clarity */
+    color: #333; /* Dark gray color for text */
+}
+
+/* Styling for inputs */
+.form-control {
+    width: 100%; /* Full width for inputs */
+    padding: 10px; /* Padding inside inputs */
+    border: 1px solid #ced4da; /* Light gray border for inputs */
+    border-radius: 5px; /* Rounded corners */
+    box-sizing: border-box; /* Include padding in total width */
+    transition: border-color 0.2s; /* Smooth border color transition */
+}
+
+/* Change border color on focus */
+.form-control:focus {
+    border-color: #007bff; /* Bootstrap primary color */
+    outline: none; /* Remove default outline */
+}
+
+
+.btn {
+    padding: 10px 15px; /* Padding for buttons */
+    border-radius: 5px; /* Rounded corners for buttons */
+    transition: background-color 0.2s; /* Smooth background color transition */
+}
+
+.btn-primary {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: #fff; /* White text color */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.btn-secondary {
+    background-color: #6c757d; /* Bootstrap secondary color */
+    color: #fff; /* White text color */
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268; /* Darker gray on hover */
+} 
+    
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa; /* Light gray background */
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333; /* Dark gray color */
+}
+
+.button {
+    display: inline-block;
+    background-color: #007bff; /* Bootstrap primary color */
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.filter-form {
+    margin-bottom: 20px;
+}
+
+.filter-form button {
+    margin-left: 10px; /* Space between filter and reset buttons */
+}
+
+.inventory-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center inventory cards */
+}
+
+.inventory-card {
+    background-color: #fff; /* White background for cards */
+    border: 1px solid #dee2e6; /* Light gray border */
+    border-radius: 5px;
+    margin: 10px;
+    padding: 15px;
+    width: 250px; /* Set a fixed width for cards */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: transform 0.2s;
+}
+
+.inventory-card:hover {
+    transform: scale(1.05); /* Scale effect on hover */
+}
+
+.inventory-image {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.inventory-image img {
+    max-width: 100%; /* Responsive image */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.no-image {
+    background-color: #f1f1f1; /* Gray background for no image */
+    padding: 20px;
+    border: 1px dashed #ccc; /* Dotted border */
+    color: #888; /* Light gray text */
+}
+
+.inventory-details h3 {
+    margin-bottom: 10px; /* Space below the item name */
+}
+
+.description {
+    font-size: 0.9rem; /* Smaller font for description */
+    color: #666; /* Dark gray color */
+}
+
+.low-stock {
+    color: red; /* Red color for low stock alert */
+    font-weight: bold; /* Bold text */
+}
+
+.inventory-actions {
+    margin-top: 10px; /* Space above action links */
+}
+
+.inventory-actions a {
+    margin-right: 5px; /* Space between action links */
+}
+
+.pagination {
+    text-align: center; /* Center pagination */
+    margin-top: 20px; /* Space above pagination */
+}
+
+.page-links {
+    font-size: 0.9rem; /* Smaller font for pagination */
+}
+
+.current {
+    font-weight: bold; /* Bold text for current page */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .inventory-container {
+        flex-direction: column; /* Stack cards vertically */
+        align-items: center; /* Center align cards */
+    }
+
+    .inventory-card {
+        width: 90%; /* Full width for small screens */
+    }
+}
+
+    
+    </style>
+    
     <h2>Inventory List</h2>
-    <a href="{% url 'add_inventory_item' %}" class="button">Add Inventory Item</a>
+    <a href="{% url 'add_inventory_item' %}" class="button">Add Item</a>
     
     <form method="get" class="filter-form">
-        {{ form.as_p }}
-        <button type="submit">Filter</button>
-        <a href="{% url 'inventory_list' %}" class="button">Reset</a>
-    </form>
-    
-    <table class="inventory-table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Quantity</th>
-                <th>Reorder Level</th>
-                <th>Price</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in items %}
-                <tr>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.description }}</td>
-                    <td>
-                        {{ item.quantity }}
-                        {% if item.quantity <= item.reorder_level %}
-                            <span class="low-stock">Low Stock</span>
-                        {% endif %}
-                    </td>
-                    <td>{{ item.reorder_level }}</td>
-                    <td>{{ item.price }}</td>
-                    <td>
+    <div class="form-group">
+        <label for="name">Item Name:</label>
+        <input type="text" name="name" id="name" class="form-control" placeholder="Enter item name" value="{{ request.GET.name }}">
+    </div>
+    <div class="form-group">
+        <label for="min_quantity">Min Quantity:</label>
+        <input type="number" name="min_quantity" id="min_quantity" class="form-control" placeholder="Min quantity" value="{{ request.GET.min_quantity }}">
+    </div>
+    <div class="form-group">
+        <label for="max_quantity">Max Quantity:</label>
+        <input type="number" name="max_quantity" id="max_quantity" class="form-control" placeholder="Max quantity" value="{{ request.GET.max_quantity }}">
+    </div>
+    <div class="form-group">
+        <label for="price_min">Min Price:</label>
+        <input type="number" name="price_min" id="price_min" class="form-control" placeholder="Min price" step="0.01" value="{{ request.GET.price_min }}">
+    </div>
+    <div class="form-group">
+        <label for="price_max">Max Price:</label>
+        <input type="number" name="price_max" id="price_max" class="form-control" placeholder="Max price" step="0.01" value="{{ request.GET.price_max }}">
+    </div>
+    <div class="form-group buttons">
+        <button type="submit" class="btn btn-primary">Filter</button>
+        <a href="{% url 'inventory_list' %}" class="btn btn-secondary">Reset</a>
+    </div>
+</form>
+    <br>
+      <br>
+      <br>
+    <div class="inventory-container">
+        {% for item in items %}
+            <div class="inventory-card">
+                <div class="inventory-image">
+                    {% if item.image %}
+                        <img src="{{ item.image.url }}" alt="{{ item.name }}" />
+                    {% else %}
+                        <div class="no-image">No Image</div>
+                    {% endif %}
+                </div>
+                <div class="inventory-details">
+                    <h3>{{ item.name }}</h3>
+                    <p class="description">{{ item.description }}</p>
+                    <p><strong>Index Number:</strong> {{ item.index_number }}</p>
+                    <p><strong>Quantity:</strong> {{ item.quantity }}</p>
+                    <p><strong>Reorder Level:</strong> {{ item.reorder_level }}</p>
+                    <p><strong>Price:</strong> ${{ item.price }}</p>
+                    {% if item.quantity <= item.reorder_level %}
+                        <span class="low-stock">Low Stock</span>
+                    {% endif %}
+                    <div class="inventory-actions">
                         <a href="{% url 'edit_inventory_item' item.pk %}">Edit</a> |
                         <a href="{% url 'delete_inventory_item' item.pk %}">Delete</a>
-                    </td>
-                </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="6">No inventory items found.</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="no-items">No inventory items found.</div>
+        {% endfor %}
+    </div>
+
     <div class="pagination">
         <span class="page-links">
             {% if items.has_previous %}

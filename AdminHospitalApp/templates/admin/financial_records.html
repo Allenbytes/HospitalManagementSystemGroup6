@@ -2,13 +2,235 @@
 {% extends 'admin/admin_dashboard.html' %}
 {% load static %}
 {% block content %}
+    <style>
+/* General form styling */
+.filter-form {
+    background-color: #ffffff; /* White background for the form */
+    border: 1px solid #dee2e6; /* Light gray border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Padding around the form */
+    margin-bottom: 30px; /* Space below the form */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Styling for form group */
+.form-group {
+    margin-bottom: 20px; /* Space between form elements */
+}
+
+/* Styling for labels */
+label {
+    font-weight: bold; /* Bold labels for clarity */
+    color: #333; /* Dark gray color for text */
+    display: block; /* Block display for labels */
+    margin-bottom: 5px; /* Space below labels */
+}
+
+/* Styling for inputs */
+.form-control {
+    width: 100%; /* Full width for inputs */
+    padding: 10px; /* Padding inside inputs */
+    border: 1px solid #ced4da; /* Light gray border for inputs */
+    border-radius: 5px; /* Rounded corners */
+    box-sizing: border-box; /* Include padding in total width */
+    transition: border-color 0.2s; /* Smooth border color transition */
+}
+
+/* Change border color on focus */
+.form-control:focus {
+    border-color: #007bff; /* Bootstrap primary color */
+    outline: none; /* Remove default outline */
+}
+
+/* Styling for buttons container */
+.form-buttons {
+    display: flex; /* Flexbox for button alignment */
+    justify-content: space-between; /* Space between buttons */
+}
+
+/* Styling for buttons */
+.btn {
+    padding: 10px 20px; /* Padding for buttons */
+    border-radius: 5px; /* Rounded corners for buttons */
+    text-decoration: none; /* Remove underline from links */
+    transition: background-color 0.2s; /* Smooth background color transition */
+}
+
+.btn-primary {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: #fff; /* White text color */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.btn-secondary {
+    background-color: #6c757d; /* Bootstrap secondary color */
+    color: #fff; /* White text color */
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268; /* Darker gray on hover */
+}
+
+.btn-success {
+    background-color: #28a745; /* Bootstrap success color */
+    color: #fff; /* White text color */
+}
+
+.btn-success:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+.filter-form {
+    background-color: #ffffff; /* White background for the form */
+    border: 1px solid #dee2e6; /* Light gray border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 20px; /* Padding around the form */
+    margin-bottom: 30px; /* Space below the form */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Styling for buttons container */
+.form-buttons {
+    margin-top: 20px; /* Space above the buttons */
+    display: flex; /* Flexbox for button alignment */
+    justify-content: space-between; /* Space between buttons */
+}
+
+/* Styling for buttons */
+.btn {
+    padding: 10px 15px; /* Padding for buttons */
+    border-radius: 5px; /* Rounded corners for buttons */
+    text-decoration: none; /* Remove underline from links */
+    display: inline-block; /* Display as inline-block for proper spacing */
+    transition: background-color 0.2s; /* Smooth background color transition */
+}
+
+.btn-primary {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: #fff; /* White text color */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.btn-secondary {
+    background-color: #6c757d; /* Bootstrap secondary color */
+    color: #fff; /* White text color */
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268; /* Darker gray on hover */
+}
+ 
+    
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa; /* Light gray background */
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333; /* Dark gray color */
+}
+
+.nice {
+    display: inline-block;
+    margin: 10px 0;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff; /* Bootstrap primary color */
+    border-radius: 5px;
+}
+
+a:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+form {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+form button {
+    padding: 10px 15px;
+    color: #fff;
+    background-color: #28a745; /* Bootstrap success color */
+    border: none;
+    border-radius: 5px;
+}
+
+form button:hover {
+    background-color: #218838; /* Darker shade on hover */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6; /* Bootstrap border color */
+}
+
+table th {
+    background-color: #343a40; /* Dark gray for headers */
+    color: #fff;
+}
+
+table tbody tr:hover {
+    background-color: #f1f1f1; /* Light gray on row hover */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    h2 {
+        font-size: 1.5rem; /* Adjust heading size for small screens */
+    }
+
+    table th, table td {
+        font-size: 0.9rem; /* Adjust font size for smaller screens */
+    }
+}
+
+    
+    </style>
+    
+    
+    
   <h2>Financial Records</h2>
-  <a href="{% url 'add_financial_record' %}">Add Financial Record</a>
-  <form method="get">
-    {{ form.as_p }}
-    <button type="submit">Filter</button>
-    <a href="{% url 'financial_records' %}">Reset</a>
-  </form>
+<a class="btn btn-success" href="{% url 'add_financial_record' %}">Add Financial Record</a>
+<form method="get" class="filter-form">
+    <div class="form-group">
+        <label for="transaction_type">Transaction Type:</label>
+        <input type="text" name="transaction_type" id="transaction_type" class="form-control" placeholder="Enter transaction type" value="{{ request.GET.transaction_type }}">
+    </div>
+    <div class="form-group">
+        <label for="min_amount">Min Amount:</label>
+        <input type="number" name="min_amount" id="min_amount" class="form-control" placeholder="Min amount" step="0.01" value="{{ request.GET.min_amount }}">
+    </div>
+    <div class="form-group">
+        <label for="max_amount">Max Amount:</label>
+        <input type="number" name="max_amount" id="max_amount" class="form-control" placeholder="Max amount" step="0.01" value="{{ request.GET.max_amount }}">
+    </div>
+    <div class="form-group">
+        <label for="date">Date:</label>
+        <input type="date" name="date" id="date" class="form-control" value="{{ request.GET.date }}">
+    </div>
+    <div class="form-buttons">
+        <button type="submit" class="btn btn-primary">Filter</button>
+        <a class="btn btn-secondary" href="{% url 'financial_records' %}">Reset</a>
+    </div>
+</form>
+
   
   <table>
     <thead>

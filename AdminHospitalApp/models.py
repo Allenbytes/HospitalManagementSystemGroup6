@@ -2,14 +2,17 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class InventoryItem(models.Model):
+    index_number = models.PositiveIntegerField(unique=True)  # Adding index number
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
     quantity = models.PositiveIntegerField(default=0)
     reorder_level = models.PositiveIntegerField(default=10)
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    image = models.ImageField(upload_to='inventory_images/', blank=True, null=True)  # Adding image field
 
     def __str__(self):
-        return self.name
+        return f"{self.index_number} - {self.name}"
+
 
 from django.db import models
 

@@ -75,13 +75,14 @@ def export_inventory_csv(request):
 
 def add_inventory_item(request):
     if request.method == 'POST':
-        form = InventoryItemForm(request.POST)
+        form = InventoryItemForm(request.POST, request.FILES)  # Include request.FILES for image uploads
         if form.is_valid():
             form.save()
             return redirect('inventory_list')
     else:
         form = InventoryItemForm()
     return render(request, 'admin/add_inventory_item.html', {'form': form})
+
 
 
 def edit_inventory_item(request, pk):

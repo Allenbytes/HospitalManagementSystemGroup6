@@ -5,7 +5,7 @@ from .models import InventoryItem, FinancialRecord
 class InventoryItemForm(forms.ModelForm):
     class Meta:
         model = InventoryItem
-        fields = ['name', 'description', 'quantity', 'reorder_level', 'price']
+        fields = ['index_number', 'name', 'description', 'quantity', 'reorder_level', 'price', 'image']
 
     def clean_quantity(self):
         quantity = self.cleaned_data.get('quantity')

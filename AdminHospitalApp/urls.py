@@ -24,3 +24,4 @@ path('accounts/', views.account_list, name='account_list'),
     path('accounts/export/csv/', views.export_accounts_csv, name='export_accounts_csv'),
     path('accounts/view/<int:pk>/', views.view_account, name='view_account'),
 ]
+

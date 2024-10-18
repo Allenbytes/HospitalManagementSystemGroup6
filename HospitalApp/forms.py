@@ -68,3 +68,32 @@ class PatientVerificationForm(forms.ModelForm):
             'medical_records_photo': forms.ClearableFileInput(attrs={'accept': 'image/*'}),
             'address': forms.Textarea(attrs={'rows': 3}),
         }
+
+from django import forms
+from django.contrib.auth.models import User
+from HospitalApp.models import PatientAccount, DoctorAccount
+
+
+class UserForm(forms.ModelForm):
+    email = forms.EmailField(required=True)
+    first_name = forms.CharField(max_length=30, required=False, label='First Name')
+    last_name = forms.CharField(max_length=30, required=False, label='Last Name')
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'first_name', 'last_name']
+
+class PatientAccountForm(forms.ModelForm):
+    class Meta:
+        model = PatientAccount
+        fields = ['phone_number', 'address', 'profile_photo', 'medical_records_photo']
+        widgets = {
+            'address': forms.Textarea(attrs={'rows': 3, 'class': 'form-control'}),
+            'profile_photo': forms.ClearableFileInput(attrs={'accept': 'image/*', 'class': 'form-control-file'}),
+            'medical_records_photo': forms.ClearableFileInput(attrs={'accept': 'image/*', 'class': 'form-control-file'}),
+            'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+class VerifyAccountForm(forms.Form):
+    # This form can include a confirmation checkbox or any additional fields if needed
+    confirm = forms.BooleanField(required=True, label='I confirm that the above information is correct.')
