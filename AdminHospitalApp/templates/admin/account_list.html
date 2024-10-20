@@ -82,15 +82,40 @@ h2 {
     opacity: 0.9; /* Slightly dim the buttons on hover */
 }
 
-.pagination {
-    margin-top: 20px; /* Space above pagination */
-    justify-content: center; /* Center align pagination */
+.pagination .page-item {
+    margin: 0 2px;  /* Adjust spacing between pagination items */
+}
+
+.pagination .page-item .page-link {
+    color: #28a745;  /* Green text for links */
+    background-color: #fff;
+    border: 1px solid #28a745;  /* Green border */
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: #28a745;  /* Green background on hover */
+    color: #fff;  /* White text on hover */
 }
 
 .pagination .page-item.active .page-link {
-    background-color: #007bff; /* Bootstrap primary color for active */
-    border-color: #007bff; /* Match border color */
-    color: #fff; /* White text for active page */
+    background-color: #28a745;  /* Green background for active page */
+    color: #fff;  /* White text for active page */
+    border: 1px solid #28a745;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #ccc;  /* Gray text for disabled items */
+    background-color: #f8f9fa;  /* Light gray background for disabled items */
+    border: 1px solid #ddd;  /* Lighter border for disabled items */
+}
+.pagination {
+    list-style: none;  /* Remove default list style */
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
 }
 
 /* Responsive design */
@@ -171,33 +196,52 @@ h2 {
     </table>
 
 
-    <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-            {% if users.has_previous %}
-                <li class="page-item">
-                    <a class="page-link" href="?page=1{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}{% if request.GET.role %}&role={{ request.GET.role }}{% endif %}">&laquo; First</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ users.previous_page_number }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}{% if request.GET.role %}&role={{ request.GET.role }}{% endif %}">Previous</a>
-                </li>
-            {% else %}
-                <li class="page-item disabled"><span class="page-link">&laquo; First</span></li>
-                <li class="page-item disabled"><span class="page-link">Previous</span></li>
-            {% endif %}
+   <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        {% if users.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}{% if request.GET.role %}&role={{ request.GET.role }}{% endif %}">
+                    &laquo; First
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ users.previous_page_number }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}{% if request.GET.role %}&role={{ request.GET.role }}{% endif %}">
+                    Previous
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">&laquo; First</span>
+            </li>
+            <li class="page-item disabled">
+                <span class="page-link">Previous</span>
+            </li>
+        {% endif %}
 
-            <li class="page-item active"><span class="page-link">Page {{ users.number }} of {{ users.paginator.num_pages }}</span></li>
+        <li class="page-item active">
+            <span class="page-link">Page {{ users.number }} of {{ users.paginator.num_pages }}</span>
+        </li>
 
-            {% if users.has_next %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ users.next_page_number }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}{% if request.GET.role %}&role={{ request.GET.role }}{% endif %}">Next</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ users.paginator.num_pages }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}{% if request.GET.role %}&role={{ request.GET.role }}{% endif %}">Last &raquo;</a>
-                </li>
-            {% else %}
-                <li class="page-item disabled"><span class="page-link">Next</span></li>
-                <li class="page-item disabled"><span class="page-link">Last &raquo;</span></li>
-            {% endif %}
-        </ul>
-    </nav>
+        {% if users.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ users.next_page_number }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}{% if request.GET.role %}&role={{ request.GET.role }}{% endif %}">
+                    Next
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ users.paginator.num_pages }}{% if request.GET.query %}&query={{ request.GET.query }}{% endif %}{% if request.GET.role %}&role={{ request.GET.role }}{% endif %}">
+                    Last &raquo;
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Next</span>
+            </li>
+            <li class="page-item disabled">
+                <span class="page-link">Last &raquo;</span>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+
 {% endblock %}

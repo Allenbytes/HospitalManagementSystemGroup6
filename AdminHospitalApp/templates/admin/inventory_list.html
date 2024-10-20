@@ -161,10 +161,44 @@ h2 {
     margin-right: 5px; /* Space between action links */
 }
 
-.pagination {
-    text-align: center; /* Center pagination */
-    margin-top: 20px; /* Space above pagination */
+.pagination .page-item .page-link {
+    color: #28a745;  /* Green text for links */
+    background-color: #fff;
+    border: 1px solid #28a745;  /* Green border */
+    padding: 8px 12px;
+    margin: 0 2px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+.pagination .page-item .page-link:hover {
+    background-color: #28a745;  /* Green background on hover */
+    color: #fff;  /* White text on hover */
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #28a745;  /* Green background for active page */
+    color: #fff;  /* White text for active page */
+    border: 1px solid #28a745;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #ccc;  /* Gray text for disabled items */
+    background-color: #f8f9fa;  /* Light gray background for disabled items */
+    border: 1px solid #ddd;  /* Lighter border for disabled items */
+}
+
+.pagination {
+    list-style: none;  /* Remove default list style */
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.pagination .page-item {
+    margin: 0 3px;
+}
+
 
 .page-links {
     font-size: 0.9rem; /* Smaller font for pagination */
@@ -253,21 +287,44 @@ h2 {
     </div>
 
     <div class="pagination">
-        <span class="page-links">
-            {% if items.has_previous %}
-                <a href="?page=1{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.min_quantity %}&min_quantity={{ request.GET.min_quantity }}{% endif %}{% if request.GET.max_quantity %}&max_quantity={{ request.GET.max_quantity }}{% endif %}{% if request.GET.price_min %}&price_min={{ request.GET.price_min }}{% endif %}{% if request.GET.price_max %}&price_max={{ request.GET.price_max }}{% endif %}">&laquo; first</a>
-                <a href="?page={{ items.previous_page_number }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.min_quantity %}&min_quantity={{ request.GET.min_quantity }}{% endif %}{% if request.GET.max_quantity %}&max_quantity={{ request.GET.max_quantity }}{% endif %}{% if request.GET.price_min %}&price_min={{ request.GET.price_min }}{% endif %}{% if request.GET.price_max %}&price_max={{ request.GET.price_max }}{% endif %}">previous</a>
-            {% endif %}
-            
-            <span class="current">
-                Page {{ items.number }} of {{ items.paginator.num_pages }}.
-            </span>
-            
-            {% if items.has_next %}
-                <a href="?page={{ items.next_page_number }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.min_quantity %}&min_quantity={{ request.GET.min_quantity }}{% endif %}{% if request.GET.max_quantity %}&max_quantity={{ request.GET.max_quantity }}{% endif %}{% if request.GET.price_min %}&price_min={{ request.GET.price_min }}{% endif %}{% if request.GET.price_max %}&price_max={{ request.GET.price_max }}{% endif %}">next</a>
-                <a href="?page={{ items.paginator.num_pages }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.min_quantity %}&min_quantity={{ request.GET.min_quantity }}{% endif %}{% if request.GET.max_quantity %}&max_quantity={{ request.GET.max_quantity }}{% endif %}{% if request.GET.price_min %}&price_min={{ request.GET.price_min }}{% endif %}{% if request.GET.price_max %}&price_max={{ request.GET.price_max }}{% endif %}">last &raquo;</a>
-            {% endif %}
-        </span>
-    </div>
+    <ul class="pagination justify-content-center">
+        {% if items.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.min_quantity %}&min_quantity={{ request.GET.min_quantity }}{% endif %}{% if request.GET.max_quantity %}&max_quantity={{ request.GET.max_quantity }}{% endif %}{% if request.GET.price_min %}&price_min={{ request.GET.price_min }}{% endif %}{% if request.GET.price_max %}&price_max={{ request.GET.price_max }}{% endif %}">&laquo; First</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ items.previous_page_number }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.min_quantity %}&min_quantity={{ request.GET.min_quantity }}{% endif %}{% if request.GET.max_quantity %}&max_quantity={{ request.GET.max_quantity }}{% endif %}{% if request.GET.price_min %}&price_min={{ request.GET.price_min }}{% endif %}{% if request.GET.price_max %}&price_max={{ request.GET.price_max }}{% endif %}">Previous</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">&laquo; First</span>
+            </li>
+            <li class="page-item disabled">
+                <span class="page-link">Previous</span>
+            </li>
+        {% endif %}
+
+        <li class="page-item active">
+            <span class="page-link">Page {{ items.number }} of {{ items.paginator.num_pages }}</span>
+        </li>
+
+        {% if items.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ items.next_page_number }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.min_quantity %}&min_quantity={{ request.GET.min_quantity }}{% endif %}{% if request.GET.max_quantity %}&max_quantity={{ request.GET.max_quantity }}{% endif %}{% if request.GET.price_min %}&price_min={{ request.GET.price_min }}{% endif %}{% if request.GET.price_max %}&price_max={{ request.GET.price_max }}{% endif %}">Next</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ items.paginator.num_pages }}{% if request.GET.name %}&name={{ request.GET.name }}{% endif %}{% if request.GET.min_quantity %}&min_quantity={{ request.GET.min_quantity }}{% endif %}{% if request.GET.max_quantity %}&max_quantity={{ request.GET.max_quantity }}{% endif %}{% if request.GET.price_min %}&price_min={{ request.GET.price_min }}{% endif %}{% if request.GET.price_max %}&price_max={{ request.GET.price_max }}{% endif %}">Last &raquo;</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Next</span>
+            </li>
+            <li class="page-item disabled">
+                <span class="page-link">Last &raquo;</span>
+            </li>
+        {% endif %}
+    </ul>
+</div>
+
     <a href="{% url 'export_inventory_csv' %}" class="button">Export as CSV</a>
 {% endblock %}

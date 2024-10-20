@@ -4,6 +4,70 @@
 {% block content %}
     <style>
 
+    /* General table styling */
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.styled-table th, 
+.styled-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.styled-table th {
+    background-color: #28a745;  /* Green background for the header */
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+}
+
+.styled-table tbody tr:nth-child(even) {
+    background-color: #f3f3f3;  /* Zebra striping for better readability */
+}
+
+.styled-table tbody tr:hover {
+    background-color: #e1f5e1;  /* Light green on row hover */
+}
+
+.styled-table tbody td {
+    color: #333;  /* Dark text color for readability */
+}
+
+/* Action links styling */
+.action-link {
+    text-decoration: none;
+    padding: 6px 10px;
+    margin-right: 8px;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.edit-link {
+    background-color: #007bff;  /* Bootstrap primary blue for Edit */
+    color: white;
+}
+
+.delete-link {
+    background-color: #dc3545;  /* Bootstrap danger red for Delete */
+    color: white;
+}
+
+.action-link:hover {
+    opacity: 0.9;  /* Slight dim on hover */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .styled-table th, .styled-table td {
+        padding: 8px 10px;  /* Smaller padding for small screens */
+
+    
 .filter-form {
     background-color: #ffffff; 
     border: 1px solid #dee2e6; 
@@ -229,35 +293,35 @@ table tbody tr:hover {
 </form>
 
   
-  <table>
+  <table class="styled-table">
     <thead>
-      <tr>
-        <th>Type</th>
-        <th>Amount</th>
-        <th>Description</th>
-        <th>Date</th>
-        <th>Actions</th>
-      </tr>
+        <tr>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
     </thead>
     <tbody>
-      {% for record in records %}
+        {% for record in records %}
         <tr>
-          <td>{{ record.transaction_type }}</td>
-          <td>{{ record.amount }}</td>
-          <td>{{ record.description }}</td>
-          <td>{{ record.date }}</td>
-          <td>
-            <a href="{% url 'edit_financial_record' record.pk %}">Edit</a>
-            <a href="{% url 'delete_financial_record' record.pk %}">Delete</a>
-          </td>
+            <td>{{ record.transaction_type }}</td>
+            <td>{{ record.amount }}</td>
+            <td>{{ record.description }}</td>
+            <td>{{ record.date }}</td>
+            <td>
+                <a href="{% url 'edit_financial_record' record.pk %}" class="action-link edit-link">Edit</a>
+                <a href="{% url 'delete_financial_record' record.pk %}" class="action-link delete-link">Delete</a>
+            </td>
         </tr>
-      {% empty %}
+        {% empty %}
         <tr>
-          <td colspan="5">No financial records found.</td>
+            <td colspan="5">No financial records found.</td>
         </tr>
-      {% endfor %}
+        {% endfor %}
     </tbody>
-  
-  </table>
+</table>
+
 {% endblock %}
 <a href="{% url 'export_financial_records_csv' %}">Export as CSV</a>

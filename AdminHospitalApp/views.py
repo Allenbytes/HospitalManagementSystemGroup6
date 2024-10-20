@@ -320,18 +320,22 @@ def delete_account(request, pk):
 
     return render(request, 'admin/delete_account.html', {'user': user})
 
+
 def view_account(request, pk):
     user = get_object_or_404(User, pk=pk)
+
+    # Initialize both profiles as None
+    patient_profile = None
+    doctor_profile = None
+
     try:
         patient_profile = user.patientaccount
         profile_type = 'patient'
     except PatientAccount.DoesNotExist:
-        patient_profile = None
         try:
             doctor_profile = user.doctoraccount
             profile_type = 'doctor'
         except DoctorAccount.DoesNotExist:
-            doctor_profile = None
             profile_type = 'unknown'
 
     context = {
@@ -340,7 +344,9 @@ def view_account(request, pk):
         'patient_profile': patient_profile,
         'doctor_profile': doctor_profile,
     }
+
     return render(request, 'admin/view_account.html', context)
+
 
 def export_accounts_csv(request):
     response = HttpResponse(content_type='text/csv')

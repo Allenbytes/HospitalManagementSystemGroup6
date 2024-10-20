@@ -58,7 +58,6 @@
         <h1>Patient Dashboard</h1>
         <nav>
             <ul>
-    <li><a href="{% url 'home' %}">Home</a></li>
     
     {% if user.is_authenticated %}
         <li><a href="{% url 'doctor_logout' %}">Logout</a></li>
